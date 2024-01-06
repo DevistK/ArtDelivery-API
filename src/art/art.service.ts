@@ -1,7 +1,12 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  HttpException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ArtDto } from '../dto/art.dto';
 import OpenAI from 'openai';
 import { ResponseDto } from '../dto/response.dto';
+import * as process from 'process';
 
 @Injectable()
 export class ArtService {
@@ -9,6 +14,10 @@ export class ArtService {
     apiKey: process.env.OPENAI_API_KEY,
   });
   async generate(data: ArtDto) {
+    if (data.code !== process.env.INVITE_CODE) {
+      throw new HttpException('Invalid InviteCode', 403);
+    }
+
     try {
       const image = await this.openai.images.generate({
         model: 'dall-e-3',
