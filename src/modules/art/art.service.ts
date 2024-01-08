@@ -3,9 +3,9 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { ArtDto } from '../dto/art.dto';
+import { ArtDto } from '../../dto/art.dto';
 import OpenAI from 'openai';
-import { ResponseDto } from '../dto/response.dto';
+import { ResponseDto } from '../../dto/response.dto';
 import * as process from 'process';
 
 @Injectable()

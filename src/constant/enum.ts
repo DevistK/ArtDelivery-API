@@ -13,3 +13,9 @@ export enum Quality {
   standard = 'standard',
   hd = 'hd',
 }
+
+export enum OAuth {
+  Google = 'Google',
+  Kakao = 'Kakao',
+  Naver = 'Naver',
+}

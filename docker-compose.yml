@@ -1,0 +1,16 @@
+version: '1'
+services:
+  local-db:
+    image: library/mysql:latest
+    container_name: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_HOST: '${DB_HOST}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      TZ: '${TZ}'
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+    platform: linux/x86_64

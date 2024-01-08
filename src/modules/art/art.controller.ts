@@ -5,7 +5,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ArtDto } from '../dto/art.dto';
+import { ArtDto } from '../../dto/art.dto';
 import { ArtService } from './art.service';
 
 @Controller('art')
