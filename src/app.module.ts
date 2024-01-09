@@ -5,6 +5,11 @@ import { DatabaseModule } from './provider/database/database.module';
 import * as Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataBaseService } from './provider/database/database.service';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { AppService } from './app.service';
+import { JwtStrategy } from './modules/auth/strategies/jwt.strategy';
+import { GoogleOauthStrategy } from './modules/auth/strategies/google-oauth.strategy';
 
 @Module({
   imports: [
@@ -21,9 +26,12 @@ import { DataBaseService } from './provider/database/database.service';
     TypeOrmModule.forRoot(
       new DataBaseService(new ConfigService()).getTypeOrmConfig(),
     ),
-    ArtModule,
     DatabaseModule,
+    AuthModule,
+    UserModule,
+    ArtModule,
   ],
   controllers: [],
+  providers: [AppService, JwtStrategy, GoogleOauthStrategy],
 })
 export class AppModule {}

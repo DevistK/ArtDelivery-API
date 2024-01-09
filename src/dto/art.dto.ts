@@ -17,8 +17,4 @@ export class ArtDto {
   @IsString()
   @IsNotEmpty()
   prompt: string;
-
-  @IsString()
-  @IsNotEmpty()
-  code: string;
 }

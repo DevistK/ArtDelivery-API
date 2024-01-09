@@ -4,11 +4,9 @@ import {
   Entity,
   JoinColumn,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Invite } from '../../invite/entity/invite.entity';
 import { Oauth } from '../../oauth/entity/oauth.entity';
 import { PointLog } from '../../pointLog/entity/pointLog.entity';
 import { Archive } from '../../archive/archive.entity';
@@ -24,24 +22,17 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ default: 10000 })
   point: number;
 
-  @Column()
+  @Column({ default: 0 })
   count: number;
-
-  @Column()
-  isAllowInvite: boolean;
 
   @CreateDateColumn()
   createAt: Date;
 
   @UpdateDateColumn()
   updateAt: Date;
-
-  @OneToOne(() => Invite, (invite) => invite.user)
-  @JoinColumn({ name: 'invite_id', referencedColumnName: 'id' })
-  invite: Invite;
 
   @OneToMany(() => Oauth, (oauth) => oauth.user)
   @JoinColumn({
