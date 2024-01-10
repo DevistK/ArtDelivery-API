@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -14,6 +15,10 @@ import { User } from '../../user/entity/user.entity';
 export class Oauth {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ unique: true })
+  @Index()
+  provideId: number;
 
   @Column()
   accessToken: string;

@@ -5,10 +5,16 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Oauth } from '../../repository/oauth/entity/oauth.entity';
+import { Repository } from 'typeorm';
+import OauthQuery from '../../repository/oauth/oauth.query';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @InjectRepository(Oauth)
+    private oauthRepository: Repository<Oauth>,
     private jwtService: JwtService,
     private userService: UserService,
   ) {}
@@ -22,9 +28,18 @@ export class AuthService {
       throw new BadRequestException('Unauthenticated');
     }
 
+    console.log('signIn ???', data);
+
+    const isAccess = await OauthQuery.getOauthAccessToken(
+      this.oauthRepository,
+      data.accessToken,
+      data.provider,
+      data.providerId,
+    );
+
     const userExists = await this.userService.getUserByEmail(data.email);
 
-    if (!userExists) {
+    if (!userExists && !isAccess) {
       return this.signUp(data);
     }
 
@@ -37,7 +52,6 @@ export class AuthService {
 
   async signUp(data: any) {
     try {
-      console.log('signUp ???', data);
       const newAccount = await this.userService.addUser(data.email, data.name);
 
       return this.generateJwt({

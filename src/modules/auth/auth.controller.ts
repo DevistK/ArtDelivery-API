@@ -14,6 +14,7 @@ import { ResponseDto } from '../../dto/response.dto';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
   @Get('google')
   @UseGuards(GoogleOauthGuard)
   async auth() {}
@@ -21,6 +22,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
   async googleAuthCallback(@Req() req, @Res() res: Response) {
+    const clientHostUrl = process.env.CLIENT_HOST_URL;
     const token = await this.authService.signIn(req.user);
 
     res.cookie('access_token', token, {
@@ -28,6 +30,8 @@ export class AuthController {
       sameSite: true,
       secure: false,
     });
+
+    res.redirect(`${clientHostUrl}/oauth?token=${token}`);
 
     return new ResponseDto(HttpStatus.OK, null, 'OK');
   }
