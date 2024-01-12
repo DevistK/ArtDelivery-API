@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Archive } from '../archive/archive.entity';
-import { Quality, Size, Style } from '../../constant/enum';
+import { Quality, Size, Style } from '../../../constant/enum';
+import { User } from '../../user/entity/user.entity';
 
-@Entity({ schema: 'dalle3-gen', name: 'generate_image' })
+@Entity({ schema: 'art_delivery', name: 'generate_image' })
 export class GenerateImage {
   @PrimaryGeneratedColumn()
   id: number;
@@ -45,10 +45,10 @@ export class GenerateImage {
   @UpdateDateColumn()
   updateAt: Date;
 
-  @ManyToOne(() => Archive, (archive) => archive.generateImages)
+  @ManyToOne(() => User, (user) => user.generateImages)
   @JoinColumn({
-    name: 'archive_id',
+    name: 'user_id',
     referencedColumnName: 'id',
   })
-  archive: Archive;
+  user: User;
 }

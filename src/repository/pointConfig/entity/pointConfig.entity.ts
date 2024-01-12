@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Quality, Size, Style } from '../../../constant/enum';
 
-@Entity({ schema: 'dalle3-gen', name: 'pointConfig' })
+@Entity({ schema: 'art_delivery', name: 'point_config' })
 export class PointConfig {
   @PrimaryGeneratedColumn()
   id: number;

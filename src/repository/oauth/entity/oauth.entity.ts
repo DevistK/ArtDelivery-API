@@ -11,13 +11,13 @@ import {
 import { OAuth } from '../../../constant/enum';
 import { User } from '../../user/entity/user.entity';
 
-@Entity({ schema: 'dalle3-gen', name: 'oauth' })
+@Entity({ schema: 'art_delivery', name: 'oauth' })
 export class Oauth {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Index()
-  @Column({ unique: true })
+  @Column()
   provideId: string;
 
   @Column()

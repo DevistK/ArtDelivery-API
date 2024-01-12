@@ -10,6 +10,10 @@ import { JwtStrategy } from './modules/auth/strategies/jwt.strategy';
 import { GoogleOauthStrategy } from './modules/auth/strategies/google-oauth.strategy';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
+import { ArchiveService } from './modules/archive/archive.service';
+import { ArchiveModule } from './modules/archive/archive.module';
+import { ArchiveController } from './modules/archive/archive.controller';
+import { ArchiveService } from './modules/archive/archive.service';
 
 @Module({
   imports: [
@@ -29,8 +33,9 @@ import { DataSource } from 'typeorm';
     AuthModule,
     UserModule,
     ArtModule,
+    ArchiveModule,
   ],
-  controllers: [],
-  providers: [AppService, JwtStrategy, GoogleOauthStrategy],
+  controllers: [ArchiveController],
+  providers: [AppService, JwtStrategy, GoogleOauthStrategy, ArchiveService],
 })
 export class AppModule {}

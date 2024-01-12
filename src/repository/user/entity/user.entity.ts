@@ -9,9 +9,10 @@ import {
 } from 'typeorm';
 import { Oauth } from '../../oauth/entity/oauth.entity';
 import { PointLog } from '../../pointLog/entity/pointLog.entity';
-import { Archive } from '../../archive/archive.entity';
+import { GenerateImage } from '../../generateImage/entity/generateImage.entity';
+import { Archive } from '../../archive/entity/archive.entity';
 
-@Entity({ schema: 'dalle3-gen', name: 'user' })
+@Entity({ schema: 'art_delivery', name: 'user' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -40,6 +41,13 @@ export class User {
     referencedColumnName: 'id',
   })
   oauth: Oauth[];
+
+  @OneToMany(() => GenerateImage, (genImg) => genImg.user)
+  @JoinColumn({
+    name: 'generateImage_id',
+    referencedColumnName: 'id',
+  })
+  generateImages: GenerateImage[];
 
   @OneToMany(() => Archive, (archive) => archive.user)
   @JoinColumn({

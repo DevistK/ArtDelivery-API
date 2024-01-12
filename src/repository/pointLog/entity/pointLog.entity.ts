@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { User } from '../../user/entity/user.entity';
 
-@Entity({ schema: 'dalle3-gen', name: 'pointLog' })
+@Entity({ schema: 'art_delivery', name: 'point_log' })
 export class PointLog {
   @PrimaryGeneratedColumn()
   id: number;

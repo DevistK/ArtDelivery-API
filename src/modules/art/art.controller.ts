@@ -9,6 +9,8 @@ import {
 import { ArtDto } from '../../dto/art.dto';
 import { ArtService } from './art.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
+import { GetJwt } from '../../decorators/jwt.decorator';
+import { User } from '../../repository/user/entity/user.entity';
 
 @Controller('art')
 export class ArtController {
@@ -17,7 +19,7 @@ export class ArtController {
   @UseGuards(JwtAuthGuard)
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  async generateArt(@Body() data: ArtDto) {
-    return this.artService.generate(data);
+  async generateArt(@GetJwt() user: User, @Body() data: ArtDto) {
+    return this.artService.generate(user, data);
   }
 }
