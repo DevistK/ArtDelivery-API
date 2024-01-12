@@ -8,10 +8,23 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AppService } from './app.service';
 import { JwtStrategy } from './modules/auth/strategies/jwt.strategy';
 import { GoogleOauthStrategy } from './modules/auth/strategies/google-oauth.strategy';
+import { addTransactionalDataSource } from 'typeorm-transactional';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(new DataBaseService().getTypeOrmConfig()),
+    TypeOrmModule.forRootAsync({
+      useFactory() {
+        return new DataBaseService().getTypeOrmConfig();
+      },
+      async dataSourceFactory(options) {
+        if (!options) {
+          throw new Error('Invalid options passed');
+        }
+
+        return addTransactionalDataSource(new DataSource(options));
+      },
+    }),
     DatabaseModule,
     AuthModule,
     UserModule,

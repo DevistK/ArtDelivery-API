@@ -16,14 +16,14 @@ export class Oauth {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
   @Index()
-  provideId: number;
+  @Column({ unique: true })
+  provideId: string;
 
   @Column()
   accessToken: string;
 
-  @Column()
+  @Column({ nullable: true })
   refreshToken: string;
 
   @Column({

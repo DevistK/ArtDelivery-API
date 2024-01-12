@@ -15,10 +15,6 @@ import { ResponseDto } from '../../dto/response.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Get('google')
-  @UseGuards(GoogleOauthGuard)
-  async auth() {}
-
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
   async googleAuthCallback(@Req() req, @Res() res: Response) {
@@ -26,7 +22,7 @@ export class AuthController {
     const token = await this.authService.signIn(req.user);
 
     res.cookie('access_token', token, {
-      maxAge: 2592000000,
+      maxAge: 86400,
       sameSite: true,
       secure: false,
     });

@@ -8,7 +8,7 @@ export default class OauthQuery {
     oAuthRepository: Repository<Oauth>,
     accessToken: string,
     provider: OAuth,
-    providerId: number,
+    providerId: string,
   ): Promise<Oauth> => {
     return oAuthRepository.findOne({
       where: {
@@ -19,20 +19,15 @@ export default class OauthQuery {
     });
   };
 
-  // 트랜잭션 처리
-  // OAuth 로그인 -> 토큰 발급 -> 한번도 가입한 이력이 없으면 User 생성
-  // OAuth 테이블에 해당 user , 토큰 저장
-
-  // signIn 할때 accessToken 체크 하고 user email로 유저 체크
-
-  // signUp 시 새 계정 auth 추가
   static addOauth = (
     oAuthRepository: Repository<Oauth>,
     accessToken: string,
+    providerId: string,
     provider: OAuth,
     user: User,
   ): Promise<Oauth> => {
     return oAuthRepository.save({
+      provideId: providerId,
       accessToken,
       type: provider,
       user: user,

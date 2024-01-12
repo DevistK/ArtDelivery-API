@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Oauth } from '../../repository/oauth/entity/oauth.entity';
 import { Repository } from 'typeorm';
 import OauthQuery from '../../repository/oauth/oauth.query';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class AuthService {
@@ -28,11 +29,9 @@ export class AuthService {
       throw new BadRequestException('Unauthenticated');
     }
 
-    console.log('signIn ???', data);
-
     const isAccess = await OauthQuery.getOauthAccessToken(
       this.oauthRepository,
-      data.accessToken,
+      data._accessToken,
       data.provider,
       data.providerId,
     );
@@ -50,9 +49,17 @@ export class AuthService {
     });
   }
 
+  @Transactional()
   async signUp(data: any) {
     try {
       const newAccount = await this.userService.addUser(data.email, data.name);
+      await OauthQuery.addOauth(
+        this.oauthRepository,
+        data._accessToken,
+        data.providerId,
+        data.provider,
+        newAccount,
+      );
 
       return this.generateJwt({
         sub: newAccount.id,
