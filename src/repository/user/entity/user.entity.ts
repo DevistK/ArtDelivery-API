@@ -23,6 +23,9 @@ export class User {
   @Column()
   email: string;
 
+  @Column()
+  photo: string;
+
   @Column({ default: 10000 })
   point: number;
 

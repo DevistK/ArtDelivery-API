@@ -29,7 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   async validate(payload: JwtPayload) {
     const user = await this.userService.getUserByEmail(payload.email);
-
+    console.log(user);
     if (!user)
       throw new UnauthorizedException(
         "Something went wrong and I can't sign in. Please try again",

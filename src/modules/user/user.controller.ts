@@ -10,7 +10,7 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get('info')
-  async getUser(@GetJwt() user: User) {
-    return this.userService.getUserByEmail(user.email);
+  async getUserInfo(@GetJwt() user: User) {
+    return this.userService.getUserInfo(user);
   }
 }

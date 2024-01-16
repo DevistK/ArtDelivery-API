@@ -1,17 +1,17 @@
 export enum Size {
-  lg = '1024x1024',
-  xlw = '1792x1024',
-  xlh = '1024x1792',
+  lg = '1024x1024', // 100
+  xlw = '1792x1024', // 150
+  xlh = '1024x1792', // 150
 }
 
 export enum Style {
-  vivid = 'vivid',
-  natural = 'natural',
+  vivid = 'vivid', // 60
+  natural = 'natural', // 30
 }
 
 export enum Quality {
-  standard = 'standard',
-  hd = 'hd',
+  standard = 'standard', // 200
+  hd = 'hd', // 400
 }
 
 export enum OAuth {

@@ -19,5 +19,6 @@ import { Oauth } from '../../repository/oauth/entity/oauth.entity';
   ],
   controllers: [AuthController],
   providers: [AuthService],
+  exports: [PassportModule.register({ defaultStrategy: 'jwt' })],
 })
 export class AuthModule {}

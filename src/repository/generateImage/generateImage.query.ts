@@ -4,6 +4,16 @@ import { Quality, Size, Style } from '../../constant/enum';
 import { User } from '../user/entity/user.entity';
 
 export default class GenerateImageQuery {
+  static getGenerateImageByCount = (
+    generateImageRepository: Repository<GenerateImage>,
+    user: User,
+  ) => {
+    return generateImageRepository.count({
+      where: {
+        user,
+      },
+    });
+  };
   static addGenerateImage = (
     generateImageRepository: Repository<GenerateImage>,
     buffer: string,

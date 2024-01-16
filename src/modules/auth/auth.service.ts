@@ -38,6 +38,7 @@ export class AuthService {
 
     const userExists = await this.userService.getUserByEmail(data.email);
 
+    console.log(data);
     if (!userExists && !isAccess) {
       return this.signUp(data);
     }
@@ -52,7 +53,11 @@ export class AuthService {
   @Transactional()
   async signUp(data: any) {
     try {
-      const newAccount = await this.userService.addUser(data.email, data.name);
+      const newAccount = await this.userService.addUser(
+        data.email,
+        data.name,
+        data.photo,
+      );
       await OauthQuery.addOauth(
         this.oauthRepository,
         data._accessToken,

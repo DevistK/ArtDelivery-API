@@ -21,7 +21,7 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback,
   ): Promise<any> {
-    const { id, name, emails } = profile;
+    const { id, name, emails, picture } = profile;
 
     const user = {
       _accessToken,
@@ -30,6 +30,7 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
       providerId: id,
       email: emails[0].value,
       name: `${name.givenName} ${name.familyName}`,
+      photo: picture,
     };
 
     done(null, user);

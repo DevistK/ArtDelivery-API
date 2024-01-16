@@ -18,7 +18,9 @@ export class GenerateImage {
   @Column()
   buffer: string;
 
-  @Column()
+  @Column({
+    type: 'text',
+  })
   prompt: string;
 
   @Column({

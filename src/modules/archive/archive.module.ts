@@ -7,6 +7,7 @@ import { ArchiveController } from './archive.controller';
 @Module({
   imports: [TypeOrmModule.forFeature([Archive])],
   controllers: [ArchiveController],
+  providers: [ArchiveService],
   exports: [ArchiveService],
 })
 export class ArchiveModule {}
