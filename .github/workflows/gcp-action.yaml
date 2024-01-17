@@ -1,0 +1,79 @@
+name: Art Delivery API
+
+# 파일이 실행 되는 조건
+# 현재 기준 main branch 에 코드가 push 되는 조건을 가지고 있음
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name : Art Delivery API Action
+    runs-on : ubuntu-latest
+    steps:
+      - name : Checkout Branch
+        uses : actions/checkout@v3
+
+      - name : Docker Login
+        uses : docker/login-action@v2.0.0
+        with :
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name : Generate ENV File
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GCP_API_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CALLBACK_URL: ${{ secrets.GOOGLE_CALLBACK_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          CLIENT_HOST_URL: ${{ secrets.CLIENT_HOST_URL }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          TZ: ${{ secrets.TZ }}
+        run : |
+          echo "OPENAI_API_KEY=$OPENAI_API_KEY" >> env.prod
+          echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> env.prod
+          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> env.prod
+          echo "JWT_SECRET=$JWT_SECRET" >> env.prod
+          echo "CLIENT_HOST_URL=$CLIENT_HOST_URL" >> env.prod
+          echo "DB_HOST=$DB_HOST" >> env.prod
+          echo "DB_USER=$DB_USER" >> env.prod
+          echo "DB_PORT=$DB_PORT" >> env.prod
+          echo "DB_DATABASE=$DB_DATABASE" >> env.prod
+          echo "DB_PASSWORD=$DB_PASSWORD" >> env.prod
+          echo "TZ=$TZ" >> env.prod
+
+
+      - name : Build and Push Docker Images
+        uses : docker/build-push-action@v3.0.0
+        with :
+          context: .
+          file : ./Dockerfile
+          push : true
+          platforms: linux/amd64
+          tags : tjehdgur1500/art-delivery-api
+          labels: main
+
+      - id : "auth"
+        name : Authenticate to GCP
+        uses : google-github-actions/auth@v2
+        with :
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name : SSH into GCP VM and Deploy
+        uses : appleboy/ssh-action@master
+        with :
+          host : ${{ secrets.GCP_VM_HOST }}
+          username : ${{ secrets.GCP_VM_NAME }}
+          key : ${{ secrets.GCP_SSH_KEY }}
+          port : ${{ secrets.GCP_PORT }}
+          script : |
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q) && docker rmi tjehdgur1500/art-delivery-api:main
+            docker pull tjehdgur1500/art-delivery-api:main
+            docker run -d -p 8080:8080 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Seoul tjehdgur1500/art-delivery-api:main
