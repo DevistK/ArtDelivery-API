@@ -36,17 +36,17 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           TZ: ${{ secrets.TZ }}
         run : |
-          echo "OPENAI_API_KEY=$OPENAI_API_KEY" >> env.prod
-          echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> env.prod
-          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> env.prod
-          echo "JWT_SECRET=$JWT_SECRET" >> env.prod
-          echo "CLIENT_HOST_URL=$CLIENT_HOST_URL" >> env.prod
-          echo "DB_HOST=$DB_HOST" >> env.prod
-          echo "DB_USER=$DB_USER" >> env.prod
-          echo "DB_PORT=$DB_PORT" >> env.prod
-          echo "DB_DATABASE=$DB_DATABASE" >> env.prod
-          echo "DB_PASSWORD=$DB_PASSWORD" >> env.prod
-          echo "TZ=$TZ" >> env.prod
+          echo "OPENAI_API_KEY=$OPENAI_API_KEY" >> .env.prod
+          echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> .env.prod
+          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env.prod
+          echo "JWT_SECRET=$JWT_SECRET" >> .env.prod
+          echo "CLIENT_HOST_URL=$CLIENT_HOST_URL" >> .env.prod
+          echo "DB_HOST=$DB_HOST" >> .env.prod
+          echo "DB_USER=$DB_USER" >> .env.prod
+          echo "DB_PORT=$DB_PORT" >> .env.prod
+          echo "DB_DATABASE=$DB_DATABASE" >> .env.prod
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env.prod
+          echo "TZ=$TZ" >> .env.prod
 
 
       - name : Build and Push Docker Images
