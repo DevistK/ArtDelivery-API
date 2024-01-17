@@ -71,7 +71,7 @@ jobs:
           host : ${{ secrets.GCP_VM_HOST }}
           username : ${{ secrets.GCP_VM_NAME }}
           key : ${{ secrets.GCP_SSH_KEY }}
-          port : ${{ secrets.GCP_PORT }}
+          port : 22
           script : |
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q) && docker rmi tjehdgur1500/art-delivery-api:main
