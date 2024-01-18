@@ -1,73 +1,44 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+<div align="center">
+<h2>당신의 창의력을 배달하는 Art Delivery 📦</h2>
+DALLE-3 를 활용해 조금더 쉽게 이미지를 생성해줄 수 있게 도와주는 서비스입니다.
+기능에 충실하게 만들었으며 불완전 할 수 있음을 알려드립니다.
+다만 여러분은 창의력을 발휘해 1024 ~ 1792 의 고화질 이미지를 생성하여 어떤 컨텐츠에도 다용도로 사용될 수 있도록 다운로드 받으실 수 있습니다 !🍀
+</div>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 목차
+- [개요](#개요)
+- [설명](#설명)
+- [로드맵](#로드맵)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 개요
+- Service : Art Delivery 📦
+- 개발 스택 : Nest.js , GCP , OpenAI
 
-## Description
+## 설명
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- 간단하게 이미지를 생성해보세요. <br>
+  기존 Edge 에서 제공하는 DallE 는 사용량 제한이 극도로 적습니다.<br>
+  저는 기존 OpenAI 를 활용해 더 다양한 퀄리티로 창작할 수 있도록 셀렉트 옵션을 제공하고 있습니다.
+- 포인트가 있습니다.<br>
+  시작시 10000포인트를 제공하고 있어요. 무료로 이미지를 생성해보세요.
 
-## Installation
+## 로드맵
 
-```bash
-$ npm install
-```
 
-## Running the app
+### 하루 한번 포인트 지급
 
-```bash
-# development
-$ npm run start
+---
+한국 시간 기준 AM09:00 이후로 하루 한번 접속했을때 출석하기를 누르면 포인트를 100씩 적립합니다.
 
-# watch mode
-$ npm run start:dev
 
-# production mode
-$ npm run start:prod
-```
+### 이미지 아카이브 제공
 
-## Test
+---
+현재까지 생성한 이미지 기록 및 다운로드를 받을 수 있는 아카이브 페이지
 
-```bash
-# unit tests
-$ npm run test
+### 이미지 커뮤니티 제공
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+유저들이 지금까지 생성한 이미지들을 마음껏 자랑할 수 있는 공간을 만들어 인기 이미지를 상단에 띄워줄 수도 있는
+커뮤니티를 제공합니다.
