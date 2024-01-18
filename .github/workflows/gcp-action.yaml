@@ -68,9 +68,9 @@ jobs:
       - name : SSH into GCP VM and Deploy
         uses : appleboy/ssh-action@master
         with :
+          key : ${{ secrets.GCP_SSH_KEY }}
           host : ${{ secrets.GCP_VM_HOST }}
           username : ${{ secrets.GCP_VM_NAME }}
-          key : ${{ secrets.GCP_SSH_KEY }}
           port : 22
           script : |
             docker stop $(docker ps -a -q)
